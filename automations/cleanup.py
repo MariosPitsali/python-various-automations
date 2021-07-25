@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     for item in tqdm(set(downloads_files_list), desc="Scanning Downloads Files...", colour='red'):
 
-        if item.endswith(".xlsx") or item.endswith(".xls"):
+        if item.endswith(".gif") or item.endswith(".jpeg"):
             item_path = os.path.join(downloads_folder, item)
 
             if os.path.exists(item_path):
@@ -28,9 +28,9 @@ if __name__ == "__main__":
                 datetime_now = datetime.today()
                 time_difference = datetime_now - date_created
 
-                if time_difference.days > 30:
-                    total_mb_saved += round(size_of_file/1024.0 * 1024.0)
+                if time_difference.days> 100:
+                    total_mb_saved += round(size_of_file/(1024.0 * 1024.0))
                     os.remove(item_path)
                     #print (f'File {item.name}, with size of {size_of_file/1000} KB and was created at {date_created_formatted}, was deleted')
     
-    print (f'Approx. {total_mb_saved} MB saved from hard drive.')       
+    print (f'Approx. {total_mb_saved} MB saved from hard drive, by deleting files from {os.path.basename(downloads_folder)}.')       
