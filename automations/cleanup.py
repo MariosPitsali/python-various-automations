@@ -1,15 +1,18 @@
 import os
 from datetime import datetime
 from tqdm import tqdm, trange
+import time
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
 
     downloads_folder = r"C:\Users\User\Downloads"
     downloads_files_list = [item.name for item in os.scandir(downloads_folder)]
 
     total_mb_saved = 0
+    total_files_deleted = 0
 
     for item in tqdm(set(downloads_files_list), desc="Scanning Downloads Files...", colour='red'):
+
 
         if item.endswith(".gif") or item.endswith(".jpeg"):
             item_path = os.path.join(downloads_folder, item)
@@ -30,7 +33,8 @@ if __name__ == "__main__":
 
                 if time_difference.days> 100:
                     total_mb_saved += round(size_of_file/(1024.0 * 1024.0))
+                    total_files_deleted += 1
                     os.remove(item_path)
                     #print (f'File {item.name}, with size of {size_of_file/1000} KB and was created at {date_created_formatted}, was deleted')
     
-    print (f'Approx. {total_mb_saved} MB saved from hard drive, by deleting files from {os.path.basename(downloads_folder)}.')       
+    print (f'Approx. {total_mb_saved} MB saved from hard drive, by deleting {total_files_deleted} files from {os.path.basename(downloads_folder)}.')       
